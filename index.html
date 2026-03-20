@@ -518,16 +518,106 @@ body {
 <script>
 // ── DATA ──
 const DEFAULT_WORDS = [
-  { id: 1, kanji: '行', reading: 'い', romaji: 'iku', meaning: '가다', group: 'Group 1', example: '学校に行きます。(학교에 갑니다.)', mastered: false },
-  { id: 2, kanji: '来', reading: 'く', romaji: 'kuru', meaning: '오다', group: 'Irregular', example: '家に来てください。(집에 오세요.)', mastered: false },
-  { id: 3, kanji: '食', reading: 'た', romaji: 'taberu', meaning: '먹다', group: 'Group 2', example: '朝ご飯を食べます。(아침밥을 먹습니다.)', mastered: false },
-  { id: 4, kanji: '飲', reading: 'の', romaji: 'nomu', meaning: '마시다', group: 'Group 1', example: '水を飲みます。(물을 마십니다.)', mastered: false },
-  { id: 5, kanji: '見', reading: 'み', romaji: 'miru', meaning: '보다', group: 'Group 2', example: 'テレビを見ます。(TV를 봅니다.)', mastered: false },
-  { id: 6, kanji: '聞', reading: 'き', romaji: 'kiku', meaning: '듣다 / 묻다', group: 'Group 1', example: '音楽を聞きます。(음악을 듣습니다.)', mastered: false },
-  { id: 7, kanji: '話', reading: 'はな', romaji: 'hanasu', meaning: '말하다', group: 'Group 1', example: '日本語を話します。(일본어를 말합니다.)', mastered: false },
-  { id: 8, kanji: '書', reading: 'か', romaji: 'kaku', meaning: '쓰다', group: 'Group 1', example: '手紙を書きます。(편지를 씁니다.)', mastered: false },
-  { id: 9, kanji: '読', reading: 'よ', romaji: 'yomu', meaning: '읽다', group: 'Group 1', example: '本を読みます。(책을 읽습니다.)', mastered: false },
-  { id: 10, kanji: '寝', reading: 'ね', romaji: 'neru', meaning: '자다', group: 'Group 2', example: '早く寝ます。(일찍 잡니다.)', mastered: false },
+  { id:1,  kanji:'行',  reading:'い',    fullReading:'いく',       romaji:'iku',       meaning:'가다',           group:'Group 1',   example:'学校に行きます。(학교에 갑니다.)',        mastered:false },
+  { id:2,  kanji:'来',  reading:'く',    fullReading:'くる',       romaji:'kuru',      meaning:'오다',           group:'Irregular', example:'家に来てください。(집에 오세요.)',        mastered:false },
+  { id:3,  kanji:'食べ',reading:'た',    fullReading:'たべる',     romaji:'taberu',    meaning:'먹다',           group:'Group 2',   example:'朝ご飯を食べます。(아침밥을 먹습니다.)',  mastered:false },
+  { id:4,  kanji:'飲',  reading:'の',    fullReading:'のむ',       romaji:'nomu',      meaning:'마시다',         group:'Group 1',   example:'水を飲みます。(물을 마십니다.)',          mastered:false },
+  { id:5,  kanji:'見',  reading:'み',    fullReading:'みる',       romaji:'miru',      meaning:'보다',           group:'Group 2',   example:'テレビを見ます。(TV를 봅니다.)',          mastered:false },
+  { id:6,  kanji:'聞',  reading:'き',    fullReading:'きく',       romaji:'kiku',      meaning:'듣다/묻다',      group:'Group 1',   example:'音楽を聞きます。(음악을 듣습니다.)',      mastered:false },
+  { id:7,  kanji:'話',  reading:'はな',  fullReading:'はなす',     romaji:'hanasu',    meaning:'말하다',         group:'Group 1',   example:'日本語を話します。(일본어를 말합니다.)', mastered:false },
+  { id:8,  kanji:'書',  reading:'か',    fullReading:'かく',       romaji:'kaku',      meaning:'쓰다',           group:'Group 1',   example:'手紙を書きます。(편지를 씁니다.)',       mastered:false },
+  { id:9,  kanji:'読',  reading:'よ',    fullReading:'よむ',       romaji:'yomu',      meaning:'읽다',           group:'Group 1',   example:'本を読みます。(책을 읽습니다.)',          mastered:false },
+  { id:10, kanji:'寝',  reading:'ね',    fullReading:'ねる',       romaji:'neru',      meaning:'자다',           group:'Group 2',   example:'早く寝ます。(일찍 잡니다.)',             mastered:false },
+  { id:11, kanji:'起き',reading:'お',    fullReading:'おきる',     romaji:'okiru',     meaning:'일어나다',       group:'Group 2',   example:'六時に起きます。(6시에 일어납니다.)',    mastered:false },
+  { id:12, kanji:'帰',  reading:'かえ',  fullReading:'かえる',     romaji:'kaeru',     meaning:'돌아가다',       group:'Group 1',   example:'家に帰ります。(집에 돌아갑니다.)',       mastered:false },
+  { id:13, kanji:'入',  reading:'はい',  fullReading:'はいる',     romaji:'hairu',     meaning:'들어가다',       group:'Group 1',   example:'部屋に入ります。(방에 들어갑니다.)',     mastered:false },
+  { id:14, kanji:'出',  reading:'で',    fullReading:'でる',       romaji:'deru',      meaning:'나오다',         group:'Group 2',   example:'外に出ます。(밖에 나갑니다.)',           mastered:false },
+  { id:15, kanji:'買',  reading:'か',    fullReading:'かう',       romaji:'kau',       meaning:'사다',           group:'Group 1',   example:'本を買います。(책을 삽니다.)',           mastered:false },
+  { id:16, kanji:'売',  reading:'う',    fullReading:'うる',       romaji:'uru',       meaning:'팔다',           group:'Group 1',   example:'車を売ります。(차를 팝니다.)',           mastered:false },
+  { id:17, kanji:'使',  reading:'つか',  fullReading:'つかう',     romaji:'tsukau',    meaning:'사용하다',       group:'Group 1',   example:'パソコンを使います。(PC를 사용합니다.)', mastered:false },
+  { id:18, kanji:'作',  reading:'つく',  fullReading:'つくる',     romaji:'tsukuru',   meaning:'만들다',         group:'Group 1',   example:'料理を作ります。(요리를 만듭니다.)',     mastered:false },
+  { id:19, kanji:'開け',reading:'あ',    fullReading:'あける',     romaji:'akeru',     meaning:'열다',           group:'Group 2',   example:'窓を開けます。(창문을 엽니다.)',         mastered:false },
+  { id:20, kanji:'閉め',reading:'し',    fullReading:'しめる',     romaji:'shimeru',   meaning:'닫다',           group:'Group 2',   example:'ドアを閉めます。(문을 닫습니다.)',       mastered:false },
+  { id:21, kanji:'待',  reading:'ま',    fullReading:'まつ',       romaji:'matsu',     meaning:'기다리다',       group:'Group 1',   example:'友達を待ちます。(친구를 기다립니다.)',   mastered:false },
+  { id:22, kanji:'会',  reading:'あ',    fullReading:'あう',       romaji:'au',        meaning:'만나다',         group:'Group 1',   example:'友達に会います。(친구를 만납니다.)',     mastered:false },
+  { id:23, kanji:'知',  reading:'し',    fullReading:'しる',       romaji:'shiru',     meaning:'알다',           group:'Group 1',   example:'名前を知っています。(이름을 알고 있습니다.)', mastered:false },
+  { id:24, kanji:'分か',reading:'わ',    fullReading:'わかる',     romaji:'wakaru',    meaning:'이해하다',       group:'Group 1',   example:'日本語が分かります。(일본어를 이해합니다.)', mastered:false },
+  { id:25, kanji:'思',  reading:'おも',  fullReading:'おもう',     romaji:'omou',      meaning:'생각하다',       group:'Group 1',   example:'そう思います。(그렇게 생각합니다.)',     mastered:false },
+  { id:26, kanji:'言',  reading:'い',    fullReading:'いう',       romaji:'iu',        meaning:'말하다/이르다',  group:'Group 1',   example:'何を言いましたか。(무엇을 말했습니까?)', mastered:false },
+  { id:27, kanji:'教え',reading:'おし',  fullReading:'おしえる',   romaji:'oshieru',   meaning:'가르치다',       group:'Group 2',   example:'英語を教えます。(영어를 가르칩니다.)',  mastered:false },
+  { id:28, kanji:'学',  reading:'まな',  fullReading:'まなぶ',     romaji:'manabu',    meaning:'배우다',         group:'Group 1',   example:'日本語を学びます。(일본어를 배웁니다.)', mastered:false },
+  { id:29, kanji:'働',  reading:'はたら',fullReading:'はたらく',   romaji:'hataraku',  meaning:'일하다',         group:'Group 1',   example:'会社で働きます。(회사에서 일합니다.)',  mastered:false },
+  { id:30, kanji:'休',  reading:'やす',  fullReading:'やすむ',     romaji:'yasumu',    meaning:'쉬다',           group:'Group 1',   example:'今日は休みます。(오늘은 쉽니다.)',       mastered:false },
+  { id:31, kanji:'遊',  reading:'あそ',  fullReading:'あそぶ',     romaji:'asobu',     meaning:'놀다',           group:'Group 1',   example:'公園で遊びます。(공원에서 놉니다.)',    mastered:false },
+  { id:32, kanji:'泳',  reading:'およ',  fullReading:'およぐ',     romaji:'oyogu',     meaning:'수영하다',       group:'Group 1',   example:'海で泳ぎます。(바다에서 수영합니다.)', mastered:false },
+  { id:33, kanji:'走',  reading:'はし',  fullReading:'はしる',     romaji:'hashiru',   meaning:'달리다',         group:'Group 1',   example:'毎朝走ります。(매일 아침 달립니다.)',   mastered:false },
+  { id:34, kanji:'歩',  reading:'ある',  fullReading:'あるく',     romaji:'aruku',     meaning:'걷다',           group:'Group 1',   example:'駅まで歩きます。(역까지 걷습니다.)',    mastered:false },
+  { id:35, kanji:'乗',  reading:'の',    fullReading:'のる',       romaji:'noru',      meaning:'타다',           group:'Group 1',   example:'電車に乗ります。(전철을 탑니다.)',      mastered:false },
+  { id:36, kanji:'降り',reading:'お',    fullReading:'おりる',     romaji:'oriru',     meaning:'내리다',         group:'Group 2',   example:'次の駅で降ります。(다음 역에서 내립니다.)', mastered:false },
+  { id:37, kanji:'住',  reading:'す',    fullReading:'すむ',       romaji:'sumu',      meaning:'살다/거주하다',  group:'Group 1',   example:'東京に住んでいます。(도쿄에 살고 있습니다.)', mastered:false },
+  { id:38, kanji:'引っ越',reading:'ひっこ',fullReading:'ひっこす', romaji:'hikkosu',   meaning:'이사하다',       group:'Group 1',   example:'来月引っ越します。(다음달 이사합니다.)', mastered:false },
+  { id:39, kanji:'洗',  reading:'あら',  fullReading:'あらう',     romaji:'arau',      meaning:'씻다',           group:'Group 1',   example:'手を洗います。(손을 씻습니다.)',         mastered:false },
+  { id:40, kanji:'着',  reading:'き',    fullReading:'きる',       romaji:'kiru',      meaning:'입다',           group:'Group 2',   example:'シャツを着ます。(셔츠를 입습니다.)',    mastered:false },
+  { id:41, kanji:'脱',  reading:'ぬ',    fullReading:'ぬぐ',       romaji:'nugu',      meaning:'벗다',           group:'Group 1',   example:'靴を脱ぎます。(신발을 벗습니다.)',      mastered:false },
+  { id:42, kanji:'撮',  reading:'と',    fullReading:'とる',       romaji:'toru',      meaning:'찍다/잡다',      group:'Group 1',   example:'写真を撮ります。(사진을 찍습니다.)',    mastered:false },
+  { id:43, kanji:'送',  reading:'おく',  fullReading:'おくる',     romaji:'okuru',     meaning:'보내다',         group:'Group 1',   example:'メールを送ります。(메일을 보냅니다.)',  mastered:false },
+  { id:44, kanji:'受け取',reading:'うけと',fullReading:'うけとる', romaji:'uketoru',   meaning:'받다',           group:'Group 1',   example:'荷物を受け取ります。(짐을 받습니다.)', mastered:false },
+  { id:45, kanji:'電話',reading:'でんわ',fullReading:'でんわする', romaji:'denwa suru',meaning:'전화하다',       group:'Irregular', example:'後で電話します。(나중에 전화합니다.)',  mastered:false },
+  { id:46, kanji:'予約',reading:'よやく',fullReading:'よやくする', romaji:'yoyaku suru',meaning:'예약하다',      group:'Irregular', example:'レストランを予約します。(레스토랑을 예약합니다.)', mastered:false },
+  { id:47, kanji:'練習',reading:'れんしゅう',fullReading:'れんしゅうする',romaji:'renshuu suru',meaning:'연습하다',group:'Irregular',example:'毎日練習します。(매일 연습합니다.)',   mastered:false },
+  { id:48, kanji:'勉強',reading:'べんきょう',fullReading:'べんきょうする',romaji:'benkyou suru',meaning:'공부하다',group:'Irregular',example:'日本語を勉強します。(일본어를 공부합니다.)', mastered:false },
+  { id:49, kanji:'旅行',reading:'りょこう',fullReading:'りょこうする',romaji:'ryokou suru',meaning:'여행하다',   group:'Irregular', example:'海外旅行をします。(해외여행을 합니다.)', mastered:false },
+  { id:50, kanji:'料理',reading:'りょうり',fullReading:'りょうりする',romaji:'ryouri suru',meaning:'요리하다',   group:'Irregular', example:'夕食を料理します。(저녁을 요리합니다.)', mastered:false },
+  { id:51, kanji:'切',  reading:'き',    fullReading:'きる',       romaji:'kiru',      meaning:'자르다',         group:'Group 1',   example:'野菜を切ります。(채소를 자릅니다.)',    mastered:false },
+  { id:52, kanji:'貸',  reading:'か',    fullReading:'かす',       romaji:'kasu',      meaning:'빌려주다',       group:'Group 1',   example:'本を貸します。(책을 빌려줍니다.)',      mastered:false },
+  { id:53, kanji:'借り',reading:'か',    fullReading:'かりる',     romaji:'kariru',    meaning:'빌리다',         group:'Group 2',   example:'お金を借ります。(돈을 빌립니다.)',      mastered:false },
+  { id:54, kanji:'返',  reading:'かえ',  fullReading:'かえす',     romaji:'kaesu',     meaning:'돌려주다',       group:'Group 1',   example:'本を返します。(책을 돌려줍니다.)',      mastered:false },
+  { id:55, kanji:'払',  reading:'はら',  fullReading:'はらう',     romaji:'harau',     meaning:'지불하다',       group:'Group 1',   example:'お金を払います。(돈을 지불합니다.)',    mastered:false },
+  { id:56, kanji:'もら',reading:'もら',  fullReading:'もらう',     romaji:'morau',     meaning:'받다',           group:'Group 1',   example:'プレゼントをもらいます。(선물을 받습니다.)', mastered:false },
+  { id:57, kanji:'あげ',reading:'あげ',  fullReading:'あげる',     romaji:'ageru',     meaning:'주다',           group:'Group 2',   example:'花をあげます。(꽃을 줍니다.)',          mastered:false },
+  { id:58, kanji:'くれ',reading:'くれ',  fullReading:'くれる',     romaji:'kureru',    meaning:'(나에게) 주다',  group:'Group 2',   example:'友達が本をくれます。(친구가 책을 줍니다.)', mastered:false },
+  { id:59, kanji:'持',  reading:'も',    fullReading:'もつ',       romaji:'motsu',     meaning:'가지다/들다',    group:'Group 1',   example:'荷物を持ちます。(짐을 듭니다.)',        mastered:false },
+  { id:60, kanji:'置',  reading:'お',    fullReading:'おく',       romaji:'oku',       meaning:'놓다/두다',      group:'Group 1',   example:'机の上に置きます。(책상 위에 놓습니다.)', mastered:false },
+  { id:61, kanji:'探',  reading:'さが',  fullReading:'さがす',     romaji:'sagasu',    meaning:'찾다',           group:'Group 1',   example:'鍵を探します。(열쇠를 찾습니다.)',      mastered:false },
+  { id:62, kanji:'見つけ',reading:'みつ',fullReading:'みつける',   romaji:'mitsukeru', meaning:'발견하다',       group:'Group 2',   example:'答えを見つけます。(답을 찾습니다.)',    mastered:false },
+  { id:63, kanji:'忘れ',reading:'わす',  fullReading:'わすれる',   romaji:'wasureru',  meaning:'잊다',           group:'Group 2',   example:'宿題を忘れました。(숙제를 잊었습니다.)', mastered:false },
+  { id:64, kanji:'覚え',reading:'おぼ',  fullReading:'おぼえる',   romaji:'oboeru',    meaning:'기억하다/외우다',group:'Group 2',   example:'単語を覚えます。(단어를 외웁니다.)',    mastered:false },
+  { id:65, kanji:'考え',reading:'かんが',fullReading:'かんがえる', romaji:'kangaeru',  meaning:'생각하다',       group:'Group 2',   example:'よく考えます。(잘 생각합니다.)',         mastered:false },
+  { id:66, kanji:'決め',reading:'き',    fullReading:'きめる',     romaji:'kimeru',    meaning:'결정하다',       group:'Group 2',   example:'場所を決めます。(장소를 결정합니다.)',  mastered:false },
+  { id:67, kanji:'始め',reading:'はじ',  fullReading:'はじめる',   romaji:'hajimeru',  meaning:'시작하다',       group:'Group 2',   example:'授業を始めます。(수업을 시작합니다.)',  mastered:false },
+  { id:68, kanji:'終わ',reading:'お',    fullReading:'おわる',     romaji:'owaru',     meaning:'끝나다',         group:'Group 1',   example:'仕事が終わります。(일이 끝납니다.)',    mastered:false },
+  { id:69, kanji:'続け',reading:'つづ',  fullReading:'つづける',   romaji:'tsuzukeru', meaning:'계속하다',       group:'Group 2',   example:'練習を続けます。(연습을 계속합니다.)', mastered:false },
+  { id:70, kanji:'止め',reading:'や',    fullReading:'やめる',     romaji:'yameru',    meaning:'그만두다',       group:'Group 2',   example:'仕事を辞めます。(일을 그만둡니다.)',   mastered:false },
+  { id:71, kanji:'急',  reading:'いそ',  fullReading:'いそぐ',     romaji:'isogu',     meaning:'서두르다',       group:'Group 1',   example:'急いでください。(서두르세요.)',          mastered:false },
+  { id:72, kanji:'困',  reading:'こま',  fullReading:'こまる',     romaji:'komaru',    meaning:'곤란하다',       group:'Group 1',   example:'困りました。(곤란해졌습니다.)',          mastered:false },
+  { id:73, kanji:'助け',reading:'たす',  fullReading:'たすける',   romaji:'tasukeru',  meaning:'돕다/구하다',    group:'Group 2',   example:'友達を助けます。(친구를 돕습니다.)',    mastered:false },
+  { id:74, kanji:'頼',  reading:'たの',  fullReading:'たのむ',     romaji:'tanomu',    meaning:'부탁하다',       group:'Group 1',   example:'お願いを頼みます。(부탁을 합니다.)',   mastered:false },
+  { id:75, kanji:'断',  reading:'ことわ',fullReading:'ことわる',   romaji:'kotowaru',  meaning:'거절하다',       group:'Group 1',   example:'誘いを断ります。(권유를 거절합니다.)', mastered:false },
+  { id:76, kanji:'謝',  reading:'あやま',fullReading:'あやまる',   romaji:'ayamaru',   meaning:'사과하다',       group:'Group 1',   example:'失礼を謝ります。(실례를 사과합니다.)', mastered:false },
+  { id:77, kanji:'笑',  reading:'わら',  fullReading:'わらう',     romaji:'warau',     meaning:'웃다',           group:'Group 1',   example:'みんなが笑います。(모두가 웃습니다.)', mastered:false },
+  { id:78, kanji:'泣',  reading:'な',    fullReading:'なく',       romaji:'naku',      meaning:'울다',           group:'Group 1',   example:'映画を見て泣きます。(영화를 보고 웁니다.)', mastered:false },
+  { id:79, kanji:'怒',  reading:'おこ',  fullReading:'おこる',     romaji:'okoru',     meaning:'화내다',         group:'Group 1',   example:'先生が怒ります。(선생님이 화냅니다.)', mastered:false },
+  { id:80, kanji:'驚',  reading:'おどろ',fullReading:'おどろく',   romaji:'odoroku',   meaning:'놀라다',         group:'Group 1',   example:'ニュースに驚きます。(뉴스에 놀랍니다.)', mastered:false },
+  { id:81, kanji:'喜',  reading:'よろこ',fullReading:'よろこぶ',   romaji:'yorokobu',  meaning:'기뻐하다',       group:'Group 1',   example:'合格を喜びます。(합격을 기뻐합니다.)', mastered:false },
+  { id:82, kanji:'悲し',reading:'かな',  fullReading:'かなしむ',   romaji:'kanashimu', meaning:'슬퍼하다',       group:'Group 1',   example:'別れを悲しみます。(이별을 슬퍼합니다.)', mastered:false },
+  { id:83, kanji:'心配',reading:'しんぱい',fullReading:'しんぱいする',romaji:'shinpai suru',meaning:'걱정하다',  group:'Irregular', example:'体を心配します。(몸을 걱정합니다.)',    mastered:false },
+  { id:84, kanji:'楽しみ',reading:'たの',fullReading:'たのしむ',   romaji:'tanoshimu', meaning:'즐기다',         group:'Group 1',   example:'旅行を楽しみます。(여행을 즐깁니다.)', mastered:false },
+  { id:85, kanji:'感じ',reading:'かん',  fullReading:'かんじる',   romaji:'kanjiru',   meaning:'느끼다',         group:'Group 2',   example:'寒さを感じます。(추위를 느낍니다.)',   mastered:false },
+  { id:86, kanji:'起こ',reading:'お',    fullReading:'おこる',     romaji:'okoru',     meaning:'일어나다/발생하다',group:'Group 1', example:'事故が起こります。(사고가 일어납니다.)', mastered:false },
+  { id:87, kanji:'変わ',reading:'か',    fullReading:'かわる',     romaji:'kawaru',    meaning:'바뀌다',         group:'Group 1',   example:'天気が変わります。(날씨가 바뀝니다.)', mastered:false },
+  { id:88, kanji:'増え',reading:'ふ',    fullReading:'ふえる',     romaji:'fueru',     meaning:'늘다',           group:'Group 2',   example:'人口が増えます。(인구가 늘어납니다.)', mastered:false },
+  { id:89, kanji:'減',  reading:'へ',    fullReading:'へる',       romaji:'heru',      meaning:'줄다',           group:'Group 2',   example:'体重が減ります。(체중이 줄어듭니다.)', mastered:false },
+  { id:90, kanji:'壊れ',reading:'こわ',  fullReading:'こわれる',   romaji:'kowareru',  meaning:'망가지다',       group:'Group 2',   example:'パソコンが壊れました。(PC가 망가졌습니다.)', mastered:false },
+  { id:91, kanji:'直',  reading:'なお',  fullReading:'なおす',     romaji:'naosu',     meaning:'고치다',         group:'Group 1',   example:'車を直します。(차를 고칩니다.)',        mastered:false },
+  { id:92, kanji:'捨て',reading:'す',    fullReading:'すてる',     romaji:'suteru',    meaning:'버리다',         group:'Group 2',   example:'ゴミを捨てます。(쓰레기를 버립니다.)', mastered:false },
+  { id:93, kanji:'拾',  reading:'ひろ',  fullReading:'ひろう',     romaji:'hirou',     meaning:'줍다',           group:'Group 1',   example:'ゴミを拾います。(쓰레기를 줍습니다.)', mastered:false },
+  { id:94, kanji:'運',  reading:'はこ',  fullReading:'はこぶ',     romaji:'hakobu',    meaning:'운반하다',       group:'Group 1',   example:'荷物を運びます。(짐을 운반합니다.)',   mastered:false },
+  { id:95, kanji:'集め',reading:'あつ',  fullReading:'あつめる',   romaji:'atsumeru',  meaning:'모으다',         group:'Group 2',   example:'切手を集めます。(우표를 모읍니다.)',   mastered:false },
+  { id:96, kanji:'並べ',reading:'なら',  fullReading:'ならべる',   romaji:'naraberu',  meaning:'늘어놓다',       group:'Group 2',   example:'本を並べます。(책을 늘어놓습니다.)',   mastered:false },
+  { id:97, kanji:'比べ',reading:'くら',  fullReading:'くらべる',   romaji:'kuraberu',  meaning:'비교하다',       group:'Group 2',   example:'値段を比べます。(가격을 비교합니다.)', mastered:false },
+  { id:98, kanji:'調べ',reading:'しら',  fullReading:'しらべる',   romaji:'shiraberu', meaning:'조사하다',       group:'Group 2',   example:'辞書で調べます。(사전으로 조사합니다.)', mastered:false },
+  { id:99, kanji:'確認',reading:'かくにん',fullReading:'かくにんする',romaji:'kakunin suru',meaning:'확인하다',  group:'Irregular', example:'住所を確認します。(주소를 확인합니다.)', mastered:false },
+  { id:100,kanji:'説明',reading:'せつめい',fullReading:'せつめいする',romaji:'setsumei suru',meaning:'설명하다', group:'Irregular', example:'使い方を説明します。(사용법을 설명합니다.)', mastered:false },
 ];
 
 let words = [];
@@ -691,12 +781,17 @@ function speakWord(id) {
   if (!w) return;
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    const utt = new SpeechSynthesisUtterance(w.kanji);
-    utt.lang = 'ja-JP'; utt.rate = 0.85;
-    const voices = window.speechSynthesis.getVoices();
-    const jaVoice = voices.find(v => v.lang.startsWith('ja'));
-    if (jaVoice) utt.voice = jaVoice;
-    window.speechSynthesis.speak(utt);
+    // 히라가나 전체 발음 사용 (한자 대신)
+    const utt = new SpeechSynthesisUtterance(w.fullReading || w.reading);
+    utt.lang = 'ja-JP'; utt.rate = 0.8;
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const jaVoice = voices.find(v => v.lang === 'ja-JP') || voices.find(v => v.lang.startsWith('ja'));
+      if (jaVoice) utt.voice = jaVoice;
+      window.speechSynthesis.speak(utt);
+    };
+    if (window.speechSynthesis.getVoices().length > 0) trySpeak();
+    else window.speechSynthesis.onvoiceschanged = trySpeak;
   } else {
     showToast('이 기기에서 TTS를 지원하지 않습니다');
   }
